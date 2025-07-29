@@ -288,4 +288,8 @@ public class RutaRepository {
             }
         }
     }
+
+    public List<Ruta> findByOrigen(String trim) {
+        return List.of();
+    }
 }

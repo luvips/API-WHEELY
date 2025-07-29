@@ -89,13 +89,15 @@ public class ParadaRepository {
      * </pre>
      *
      * @param idParada Identificador único de la parada (mayor a 0)
+     * @return
      * @throws SQLException             si ocurre un error en la consulta
      * @throws IllegalArgumentException si idParada es menor o igual a 0
      * @see #findAll()
      * @see #findByRecorrido(int)
      */
-    public void findById(int idParada) throws SQLException {
+    public Parada findById(int idParada) throws SQLException {
         // Implementación real aquí
+        return null;
     }
 
     /**
@@ -172,12 +174,14 @@ public class ParadaRepository {
      * </pre>
      *
      * @param parada Objeto Parada con los datos a persistir (sin ID)
+     * @return
      * @throws SQLException             si ocurre un error en la inserción
      * @throws IllegalArgumentException si los datos son inválidos o incompletos
      * @see #update(Parada)
      */
-    public void save(Parada parada) throws SQLException {
+    public int save(Parada parada) throws SQLException {
         // Implementación real aquí
+        return 0;
     }
 
     /**
@@ -191,13 +195,15 @@ public class ParadaRepository {
      * </pre>
      *
      * @param parada Objeto Parada con los datos actualizados (debe incluir ID válido)
+     * @return
      * @throws SQLException             si ocurre un error en la actualización
      * @throws IllegalArgumentException si parada es nula o ID inválido
      * @see #save(Parada)
      * @see #findById(int)
      */
-    public void update(Parada parada) throws SQLException {
+    public boolean update(Parada parada) throws SQLException {
         // Implementación real aquí
+        return false;
     }
 
     /**
@@ -209,11 +215,13 @@ public class ParadaRepository {
      * </pre>
      *
      * @param idParada Identificador único de la parada a eliminar
+     * @return
      * @throws SQLException             si ocurre un error en la eliminación
      * @throws IllegalArgumentException si el ID es inválido
      */
-    public void delete(int idParada) throws SQLException {
+    public boolean delete(int idParada) throws SQLException {
         // Implementación real aquí
+        return false;
     }
 
     /**

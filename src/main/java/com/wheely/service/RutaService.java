@@ -271,7 +271,7 @@ public class RutaService {
         }
 
         // Verificar que no exista otra ruta con el mismo nombre
-        if (rutaRepository.existsByNombreExcludingId(ruta.getNombreRuta(), ruta.getIdRuta())) {
+        if (rutaRepository.existsByNombre(ruta.getNombreRuta())) {
             throw new IllegalArgumentException("Ya existe otra ruta con ese nombre");
         }
 
@@ -382,7 +382,7 @@ public class RutaService {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre de búsqueda no puede estar vacío");
         }
-        return rutaRepository.findByNombre(nombre.trim());
+        return rutaRepository.findByOrigen(nombre.trim());
     }
 
     /**
