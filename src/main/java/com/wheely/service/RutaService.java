@@ -563,6 +563,6 @@ public class RutaService {
         // Limpiar espacios en blanco
         ruta.setNombreRuta(ruta.getNombreRuta().trim());
         ruta.setOrigen(ruta.getOrigen().trim());
-        ruta.setDestino(ruta.getDestino().trim());
+        ruta.setDestino(ruta.getDestino().trim());;
     }
 }

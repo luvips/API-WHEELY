@@ -122,7 +122,7 @@ public class TiempoRutaPeriodoController {
     public void delete(Context ctx) {
         try {
             int id = Integer.parseInt(ctx.pathParam("id"));
-            boolean deleted = tiempoRutaPeriodoService.deleteTiempo(id);
+            boolean deleted = tiempoRutaPeriodoService.createTiempo(id);
 
             if (deleted) {
                 ctx.json(ApiResponse.success("Tiempo ruta-periodo eliminado"));

@@ -39,7 +39,7 @@ package com.wheely.model;
  * <li>Notificaciones específicas para rutas de interés del usuario</li>
  * </ul>
  *
- * @author [Tu Nombre]
+ * @author Beebop
  * @version 1.0.0
  * @since 2025
  * @see com.wheely.model.Usuario

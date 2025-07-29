@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * <li>Incidencias de seguridad y emergencias</li>
  * </ul>
  *
- * @author [Tu Nombre]
+ * @author Beebop
  * @version 1.0.0
  * @since 2025
  * @see TipoReporte

@@ -48,7 +48,7 @@ import java.math.BigDecimal;
  * <li>Orden secuencial crítico para reconstrucción correcta del trazado</li>
  * </ul>
  *
- * @author [Tu Nombre]
+ * @author Beebop
  * @version 1.0.0
  * @since 2025
  * @see com.wheely.model.Recorrido

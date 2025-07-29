@@ -16,7 +16,7 @@ import java.time.LocalTime;
  * <li>Noche: 18:00 - 06:00 (hora pico vespertina + nocturno)</li>
  * </ul>
  *
- * @author [Tu Nombre]
+ * @author Beebop
  * @version 1.0.0
  * @since 2025
  * @see TiempoRutaPeriodo
@@ -27,6 +27,7 @@ public class Periodo {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private String descripcion;
+    private String nombre;
 
     /**
      * Constructor vacío requerido para Jackson y frameworks ORM.
@@ -173,5 +174,9 @@ public class Periodo {
                 ", horaFin=" + horaFin +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

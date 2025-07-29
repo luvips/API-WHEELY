@@ -288,4 +288,12 @@ public class TiempoRutaPeriodoService {
             throw new IllegalArgumentException("El periodo especificado no existe");
         }
     }
+
+    public boolean updateTiempo(TiempoRutaPeriodo tiempo) {
+        return false;
+    }
+
+    public boolean createTiempo(int id) {
+        return false;
+    }
 }

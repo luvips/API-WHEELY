@@ -30,7 +30,7 @@ import com.wheely.repository.UsuarioRepository;
  *   <li>Gestión de rutas favoritas del usuario</li>
  * </ul>
  *
- * @author Tu Nombre
+ * @author Beebop
  * @version 1.0.0
  * @since 2025
  * @see Reporte

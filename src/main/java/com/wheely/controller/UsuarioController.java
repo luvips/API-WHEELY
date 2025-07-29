@@ -9,14 +9,64 @@ import com.wheely.util.ApiResponse;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Controlador REST para la gestión de usuarios del sistema Wheely.
+ *
+ * <p>Esta clase maneja todas las peticiones HTTP relacionadas con la gestión de usuarios
+ * del sistema de transporte, incluyendo operaciones CRUD básicas y funcionalidades de
+ * autenticación (login y registro). Actúa como intermediario entre las peticiones HTTP
+ * y la lógica de negocio del servicio.</p>
+ *
+ * <p>Funcionalidades principales:</p>
+ * <ul>
+ * <li>Gestión completa de usuarios (crear, leer, actualizar, eliminar)</li>
+ * <li>Sistema de autenticación con login y registro</li>
+ * <li>Encriptación de contraseñas con BCrypt</li>
+ * <li>Validación de datos de entrada</li>
+ * <li>Manejo de respuestas HTTP estandarizadas</li>
+ * </ul>
+ *
+ * @author Beebop
+ * @version 1.0.0
+ * @since 2025
+ * @see UsuarioService
+ * @see com.wheely.model.Usuario
+ * @see com.wheely.util.ApiResponse
+ */
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
+    /**
+     * Constructor del controlador de usuarios.
+     *
+     * @param usuarioService Servicio que contiene la lógica de negocio para usuarios
+     */
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
-    // GET /api/usuarios
+    /**
+     * Obtiene todos los usuarios registrados en el sistema.
+     *
+     * <p>Este método maneja peticiones GET a /usuarios y retorna una lista completa
+     * de todos los usuarios registrados en el sistema, sin incluir las contraseñas
+     * por seguridad.</p>
+     *
+     * <pre>
+     * GET /usuarios
+     * Response: {
+     *   "success": true,
+     *   "message": "Usuarios obtenidos",
+     *   "data": [...]
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto de la petición HTTP que contiene parámetros y permite enviar respuesta
+     * @throws SQLException si ocurre error en la consulta a la base de datos
+     *
+     * @see UsuarioService#getAllUsuarios()
+     * @see ApiResponse#success(String, Object)
+     */
     public void getAll(Context ctx) {
         try {
             List<Usuario> usuarios = usuarioService.getAllUsuarios();
@@ -27,7 +77,33 @@ public class UsuarioController {
         }
     }
 
-    // GET /api/usuarios/{id}
+    /**
+     * Obtiene un usuario específico por su identificador único.
+     *
+     * <p>Busca y retorna los datos de un usuario específico basándose en el ID
+     * proporcionado en la URL. La contraseña no se incluye en la respuesta por seguridad.</p>
+     *
+     * <pre>
+     * GET /usuarios/123
+     * Response exitosa: {
+     *   "success": true,
+     *   "message": "Usuario encontrado",
+     *   "data": {...}
+     * }
+     *
+     * Response no encontrada: {
+     *   "success": false,
+     *   "message": "Usuario no encontrado"
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto HTTP que contiene el parámetro {id} en la URL
+     * @throws NumberFormatException si el ID no es un número válido
+     * @throws SQLException si ocurre error en la consulta a la base de datos
+     *
+     * @see UsuarioService#getUsuarioById(int)
+     * @see ApiResponse#notFound(String)
+     */
     public void getById(Context ctx) {
         try {
             int id = Integer.parseInt(ctx.pathParam("id"));
@@ -47,7 +123,35 @@ public class UsuarioController {
         }
     }
 
-    // POST /api/usuarios
+    /**
+     * Crea un nuevo usuario en el sistema.
+     *
+     * <p>Procesa una petición POST para crear un nuevo usuario con los datos
+     * proporcionados en el cuerpo de la petición JSON. La contraseña se encripta
+     * automáticamente antes de almacenarla.</p>
+     *
+     * <pre>
+     * POST /usuarios
+     * Body: {
+     *   "nombre": "Juan Pérez",
+     *   "email": "juan@email.com",
+     *   "password": "password123"
+     * }
+     *
+     * Response: {
+     *   "success": true,
+     *   "message": "Usuario creado",
+     *   "data": {...}
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto HTTP que contiene los datos del usuario en el cuerpo JSON
+     * @throws IllegalArgumentException si los datos del usuario son inválidos
+     * @throws SQLException si ocurre error en la base de datos
+     *
+     * @see UsuarioService#createUsuario(Usuario)
+     * @see ApiResponse#success(String, Object)
+     */
     public void create(Context ctx) {
         try {
             Usuario usuario = ctx.bodyAsClass(Usuario.class);
@@ -65,7 +169,28 @@ public class UsuarioController {
         }
     }
 
-    // PUT /api/usuarios/{id}
+    /**
+     * Actualiza un usuario existente con nuevos datos.
+     *
+     * <p>Modifica los datos de un usuario específico identificado por su ID.
+     * Si se proporciona una nueva contraseña, se encripta automáticamente.</p>
+     *
+     * <pre>
+     * PUT /usuarios/123
+     * Body: {
+     *   "nombre": "Juan Pérez Actualizado",
+     *   "email": "juan.nuevo@email.com"
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto HTTP que contiene el ID en la URL y datos actualizados en el cuerpo
+     * @throws NumberFormatException si el ID no es un número válido
+     * @throws IllegalArgumentException si los datos son inválidos
+     * @throws SQLException si ocurre error en la actualización
+     *
+     * @see UsuarioService#updateUsuario(Usuario)
+     * @see ApiResponse#success(String, Object)
+     */
     public void update(Context ctx) {
         try {
             int id = Integer.parseInt(ctx.pathParam("id"));
@@ -89,7 +214,26 @@ public class UsuarioController {
         }
     }
 
-    // DELETE /api/usuarios/{id}
+    /**
+     * Elimina un usuario del sistema por su ID.
+     *
+     * <p>Remueve permanentemente un usuario del sistema. Esta operación no puede
+     * ser revertida. También elimina datos relacionados como reportes y rutas favoritas.</p>
+     *
+     * <pre>
+     * DELETE /usuarios/123
+     * Response exitosa: {
+     *   "success": true,
+     *   "message": "Usuario eliminado"
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto HTTP que contiene el ID del usuario a eliminar
+     * @throws SQLException si ocurre error en la eliminación
+     *
+     * @see UsuarioService#deleteUsuario(int)
+     * @see ApiResponse#success(String)
+     */
     public void delete(Context ctx) {
         try {
             int id = Integer.parseInt(ctx.pathParam("id"));
@@ -106,7 +250,39 @@ public class UsuarioController {
         }
     }
 
-    // POST /usuarios/login - CORREGIDO PARA USAR VERIFICACIÓN DE CONTRASEÑAS ENCRIPTADAS
+    /**
+     * Autentica un usuario en el sistema mediante email y contraseña.
+     *
+     * <p>Valida las credenciales del usuario verificando el email y contraseña
+     * encriptada. Si las credenciales son correctas, retorna los datos del usuario
+     * (sin la contraseña) para iniciar sesión.</p>
+     *
+     * <pre>
+     * POST /usuarios/login
+     * Body: {
+     *   "email": "juan@email.com",
+     *   "password": "password123"
+     * }
+     *
+     * Response exitosa: {
+     *   "success": true,
+     *   "message": "Login exitoso",
+     *   "data": {...}
+     * }
+     *
+     * Response credenciales incorrectas: {
+     *   "success": false,
+     *   "message": "Email o contraseña incorrectos"
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto HTTP que contiene email y password en el cuerpo JSON
+     * @throws IllegalArgumentException si faltan campos requeridos
+     * @throws SQLException si ocurre error en la consulta
+     *
+     * @see UsuarioService#login(String, String)
+     * @see LoginRequest
+     */
     public void login(Context ctx) {
         try {
             var loginData = ctx.bodyAsClass(LoginRequest.class);
@@ -151,7 +327,40 @@ public class UsuarioController {
         }
     }
 
-    // POST /usuarios/register - NUEVO MÉTODO ESPECÍFICO PARA REGISTRO
+    /**
+     * Registra un nuevo usuario en el sistema con validaciones completas.
+     *
+     * <p>Crea un nuevo usuario aplicando todas las validaciones de negocio,
+     * verificando que el email sea único y encriptando la contraseña con BCrypt.
+     * Diseñado específicamente para el proceso de registro desde el frontend.</p>
+     *
+     * <pre>
+     * POST /usuarios/register
+     * Body: {
+     *   "nombre": "María García",
+     *   "email": "maria@email.com",
+     *   "password": "password123"
+     * }
+     *
+     * Response exitosa: {
+     *   "success": true,
+     *   "message": "Usuario registrado exitosamente",
+     *   "data": {...}
+     * }
+     *
+     * Response email duplicado: {
+     *   "success": false,
+     *   "message": "El email ya está registrado"
+     * }
+     * </pre>
+     *
+     * @param ctx Contexto HTTP que contiene los datos de registro en el cuerpo JSON
+     * @throws IllegalArgumentException si los datos de registro son inválidos
+     * @throws SQLException si ocurre error en la base de datos o email duplicado
+     *
+     * @see UsuarioService#register(Usuario)
+     * @see ApiResponse#success(String, Object)
+     */
     public void register(Context ctx) {
         try {
             Usuario usuario = ctx.bodyAsClass(Usuario.class);
@@ -203,15 +412,31 @@ public class UsuarioController {
         }
     }
 
-    // Clase para request de login
+    /**
+     * Clase interna para solicitudes de login.
+     *
+     * <p>Encapsula los datos necesarios para el proceso de autenticación,
+     * proporcionando una estructura clara para las peticiones de login.</p>
+     *
+     * @since 2025
+     */
     public static class LoginRequest {
+        /** Email del usuario para autenticación */
         public String email;
+        /** Contraseña del usuario para autenticación */
         public String password;
 
-        // Constructor vacío para Jackson
+        /**
+         * Constructor vacío requerido para deserialización JSON.
+         */
         public LoginRequest() {}
 
-        // Constructor con parámetros
+        /**
+         * Constructor con parámetros para crear solicitudes de login.
+         *
+         * @param email Email del usuario
+         * @param password Contraseña del usuario
+         */
         public LoginRequest(String email, String password) {
             this.email = email;
             this.password = password;
