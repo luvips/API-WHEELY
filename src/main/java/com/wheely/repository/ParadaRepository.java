@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,13 +89,12 @@ public class ParadaRepository {
      * </pre>
      *
      * @param idParada Identificador único de la parada (mayor a 0)
-     * @return Objeto Parada si existe, null si no se encuentra
-     * @throws SQLException si ocurre un error en la consulta
+     * @throws SQLException             si ocurre un error en la consulta
      * @throws IllegalArgumentException si idParada es menor o igual a 0
      * @see #findAll()
      * @see #findByRecorrido(int)
      */
-    public Parada findById(int idParada) throws SQLException {
+    public void findById(int idParada) throws SQLException {
         // Implementación real aquí
     }
 
@@ -110,13 +108,12 @@ public class ParadaRepository {
      * </pre>
      *
      * @param idRecorrido Identificador del recorrido (mayor a 0)
-     * @return Lista de paradas del recorrido, vacía si no hay paradas
-     * @throws SQLException si ocurre un error en la consulta
+     * @throws SQLException             si ocurre un error en la consulta
      * @throws IllegalArgumentException si idRecorrido es menor o igual a 0
      * @see #findAll()
      * @see #findActivasByRecorrido(int)
      */
-    public List<Parada> findByRecorrido(int idRecorrido) throws SQLException {
+    public void findByRecorrido(int idRecorrido) throws SQLException {
         // Implementación real aquí
     }
 
@@ -129,11 +126,10 @@ public class ParadaRepository {
      * List&lt;Parada&gt; activas = repository.findActivas();
      * </pre>
      *
-     * @return Lista de paradas activas, vacía si no hay activas
      * @throws SQLException si ocurre un error en la consulta
      * @see #findActivasByRecorrido(int)
      */
-    public List<Parada> findActivas() throws SQLException {
+    public void findActivas() throws SQLException {
         // Implementación real aquí
     }
 
@@ -154,6 +150,7 @@ public class ParadaRepository {
      */
     public List<Parada> findActivasByRecorrido(int idRecorrido) throws SQLException {
         // Implementación real aquí
+        return List.of();
     }
 
     /**
@@ -175,12 +172,11 @@ public class ParadaRepository {
      * </pre>
      *
      * @param parada Objeto Parada con los datos a persistir (sin ID)
-     * @return ID generado automáticamente por la base de datos
-     * @throws SQLException si ocurre un error en la inserción
+     * @throws SQLException             si ocurre un error en la inserción
      * @throws IllegalArgumentException si los datos son inválidos o incompletos
      * @see #update(Parada)
      */
-    public int save(Parada parada) throws SQLException {
+    public void save(Parada parada) throws SQLException {
         // Implementación real aquí
     }
 
@@ -195,13 +191,12 @@ public class ParadaRepository {
      * </pre>
      *
      * @param parada Objeto Parada con los datos actualizados (debe incluir ID válido)
-     * @return true si la actualización fue exitosa, false si no se encontró la parada
-     * @throws SQLException si ocurre un error en la actualización
+     * @throws SQLException             si ocurre un error en la actualización
      * @throws IllegalArgumentException si parada es nula o ID inválido
      * @see #save(Parada)
      * @see #findById(int)
      */
-    public boolean update(Parada parada) throws SQLException {
+    public void update(Parada parada) throws SQLException {
         // Implementación real aquí
     }
 
@@ -214,11 +209,10 @@ public class ParadaRepository {
      * </pre>
      *
      * @param idParada Identificador único de la parada a eliminar
-     * @return true si la eliminación fue exitosa, false si no se encontró la parada
-     * @throws SQLException si ocurre un error en la eliminación
+     * @throws SQLException             si ocurre un error en la eliminación
      * @throws IllegalArgumentException si el ID es inválido
      */
-    public boolean delete(int idParada) throws SQLException {
+    public void delete(int idParada) throws SQLException {
         // Implementación real aquí
     }
 
@@ -231,12 +225,11 @@ public class ParadaRepository {
      * </pre>
      *
      * @param idParada Identificador de la parada
-     * @param activo Estado a establecer (true para activa, false para inactiva)
-     * @return true si se actualizó correctamente, false si no se encontró la parada
-     * @throws SQLException si ocurre un error en la actualización
+     * @param activo   Estado a establecer (true para activa, false para inactiva)
+     * @throws SQLException             si ocurre un error en la actualización
      * @throws IllegalArgumentException si el ID es inválido
      */
-    public boolean updateEstado(int idParada, boolean activo) throws SQLException {
+    public void updateEstado(int idParada, boolean activo) throws SQLException {
         // Implementación real aquí
     }
 
