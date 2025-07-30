@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.wheely"},{"l":"com.wheely.config"},{"l":"com.wheely.controller"},{"l":"com.wheely.di"},{"l":"com.wheely.model"},{"l":"com.wheely.repository"},{"l":"com.wheely.routes"},{"l":"com.wheely.service"},{"l":"com.wheely.util"}];updateSearchResults();
